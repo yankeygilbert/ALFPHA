@@ -1,4 +1,5 @@
 var web3;
+// must be replaced with your contract address
 var address = "0x6AF12ebE71E6E79dA9C4D59b3Fd13b85063eF28D";
 async function Connect(){
     await window.web3.currentProvider.enable();
@@ -12,7 +13,7 @@ else{
      web3 = new Web3(new web3.HttpProvider("HTTP://127.0.0.1:7545"));
 
 }
-
+  // must be replaced with your contracts ABI
 var abi= [
 	{
 		"inputs": [
