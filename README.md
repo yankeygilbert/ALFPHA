@@ -11,4 +11,4 @@ Backend system for authentication using Ethereum network, JavaScript and Solidit
 
 This  is an authenticaton system for certificates verfication with unique tokens.
 These tokens are signed  on  the  ethereum network running  on a local machine (NB. this can deployed through  other test networks)
-The certificates are verfied through  a web frontweb
+The certificates are verfied through a web frontend using signed tokens..
