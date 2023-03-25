@@ -3,13 +3,13 @@ pragma solidity >=0.7.0 <0.9.0;
 
 contract certToken
 {
-// structure for certiface storage 
+// structure for data storage 
     struct user_token{
         string id; 
         bool exit;
     }
 
-// mapping for certifcate storage 
+// mapping for data storage 
 
     mapping (string  => user_token)  alltoken;
 
