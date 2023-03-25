@@ -4,10 +4,11 @@ Backend system for authentication using Ethereum network, JavaScript and Solidit
 // All about project
 
 ** This system system uses:  **
-
-   -Ganache Framework
+   
    - Remix ide and soldity compiler
    - Metamask 
+   - Ganache Framework
 
-This  is an authenticaton system for cerfificates  verfication with unique tokens.
+This  is an authenticaton system for certificates verfication with unique tokens.
 These tokens are signed  on  the  ethereum network running  on a local machine (NB. this can deployed through  other test networks)
+The certificates are verfied through  a web frontweb
