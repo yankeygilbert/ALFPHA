@@ -1,7 +1,7 @@
 # BLOCK-CHAIN-AUTHENTICATON
 Backend system for authentication using Ethereum network, JavaScript and Solidity.
 
-// All about project
+*** All about project (undergrad project)
 
 ** This system system uses:  **
    
