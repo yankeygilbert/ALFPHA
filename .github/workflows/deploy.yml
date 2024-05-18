@@ -18,14 +18,13 @@ jobs:
         aws-region: ${{secrets.AWS_REGION}}
       
       run: >
-        aws deploy create-deployment --application-name CodeDeployAppNameWithASG 
-        --deployment-group-name CodeDeployGroupName 
+        aws deploy create-deployment --application-name DeployPernApp 
+        --deployment-group-name PernApp
         --github-location repository=$GITHUB_REPOSITORY,commitId=$commit_hash 
         --ignore-application-stop-failures
 
-      run: |
-        cd ~/aws-hackathon/client
-        sudo npm run dev
+     
+
 
 
 
