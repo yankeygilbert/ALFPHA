@@ -1,0 +1,10 @@
+version: 0.0
+os: linux
+files:
+  - source: /awsconfig
+    destination: /
+hooks:
+  ApplicationStart:
+    - location: script/restartcodeploy.sh
+      timeout: 500
+      runas: root

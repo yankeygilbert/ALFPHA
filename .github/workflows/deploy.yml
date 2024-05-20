@@ -1,30 +1,35 @@
-
 on: workflow_dispatch
-
+env:
+  githubrepo: yankeygilbert/ALFPHA
 jobs:
-
-    runs-on: ubuntu-latest
-
-    permissions:
-      id-token: write
-      content: read
-
-    step:
-      -uses: actions/checkout@V4
-
-      -uses: aws-actions/configure-aws-credentials@v3
-       with:
-        role-to-assume: ${{secrets.AWS_ROLE_ARN}}
-        aws-region: ${{secrets.AWS_REGION}}
-      
-      run: >
-        aws deploy create-deployment --application-name DeployPernApp 
-        --deployment-group-name PernApp
-        --github-location repository=$GITHUB_REPOSITORY,commitId=$commit_hash 
-        --ignore-application-stop-failures
-
-     
-
+    build:
+      runs-on: ubuntu-latest
+      steps:
+        -uses: actions/checkout@V4
+         run: |
+          cd aws-hackathon/client && sudo npm install
+          cd aws-hackathon/server && sudo npm install
+        -uses: actions/zip@v2
+         run: tar -czvf deploy.tar.gz aws-hackathon/
+    deploy:
+      needs: build
+      runs-on: ubuntu-latest
+      permissions:
+        id-token: write
+        content: read
+      step:
+        -uses: actions/checkout@V4
+        -uses: aws-actions/configure-aws-credentials@v3
+        with:
+          role-to-assume: ${{secrets.AWS_ROLE_ARN}}
+          aws-region: ${{secrets.AWS_REGION}}
+        run: 
+          commit_hash= $(git rev-parse HEAD)
+        run: >
+          aws codedeploy create-deployment 
+          --application-name PernApp
+          --deployment-group-name GithubActions
+        
 
 
 
