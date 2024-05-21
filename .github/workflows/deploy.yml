@@ -7,9 +7,9 @@ jobs:
         content: read
       steps:
         -uses: actions/checkout@V4
-        run: 
+        -run: 
           cd aws-hackathon/client && sudo npm install
-        run:
+        -run:
           cd aws-hackathon/server && sudo npm install
     deploy:
       needs: build
@@ -23,9 +23,9 @@ jobs:
         with:
           role-to-assume: ${{secrets.AWS_ROLE_ARN}}
           aws-region: ${{secrets.AWS_REGION}}
-        run: 
+        -run: 
           commit_hash= $(git rev-parse HEAD)
-        run: >
+        -run: >
           aws deploy create-deployment 
             --application-name PernApp 
             --deployment-group-name GithubActions
