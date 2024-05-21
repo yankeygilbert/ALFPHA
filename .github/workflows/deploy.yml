@@ -1,16 +1,15 @@
 on: workflow_dispatch
-env:
-  githubrepo: yankeygilbert/ALFPHA
 jobs:
     build:
       runs-on: ubuntu-latest
+      permissions:
+        id-token: write
+        content: read
       steps:
         -uses: actions/checkout@V4
          run: |
           cd aws-hackathon/client && sudo npm install
           cd aws-hackathon/server && sudo npm install
-        -uses: actions/zip@v2
-         run: tar -czvf deploy.tar.gz aws-hackathon/
     deploy:
       needs: build
       runs-on: ubuntu-latest
@@ -26,9 +25,11 @@ jobs:
         run: 
           commit_hash= $(git rev-parse HEAD)
         run: >
-          aws codedeploy create-deployment 
-          --application-name PernApp
-          --deployment-group-name GithubActions
+          aws deploy create-deployment 
+            --application-name PernApp 
+            --deployment-group-name GithubActions
+            --deployment-config-name CodeDeployDefault.OneAtATime 
+            --github-location repository=${{ github.repository }},commitId=$commit_hash
         
 
 
