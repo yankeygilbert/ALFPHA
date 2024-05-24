@@ -22,7 +22,7 @@ jobs:
       permissions:
         id-token: write
         content: read
-      step:
+      steps:
         - uses: actions/checkout@V4
         - uses: aws-actions/configure-aws-credentials@v3
           with:
