@@ -29,7 +29,7 @@ jobs:
             aws deploy create-deployment 
             --application-name PernApp 
             --deployment-group-name GithubActions
-            --github-location repository=${{ github.repository }},commitId=$commit_hash
+            --github-location repository=${{github.repository}},commitId=$commit_hash
         
 
 
