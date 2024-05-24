@@ -6,6 +6,7 @@ jobs:
       steps:
         - uses: actions/checkout@v4
         - run: |
+            cd ${{GITHUB_WORKSPACE}}
             cd aws-hackathon/client && sudo npm install
             cd aws-hackathon/server && sudo npm install
             cd ..
