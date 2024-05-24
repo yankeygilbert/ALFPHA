@@ -21,15 +21,14 @@ jobs:
       runs-on: ubuntu-latest
       permissions:
         id-token: write
-        content: read
       steps:
         - uses: actions/checkout@V4
         - uses: aws-actions/configure-aws-credentials@v3
           with:
            role-to-assume: ${{secrets.AWS_ROLE_ARN}}
            aws-region: ${{secrets.AWS_REGION}}
-          run: commit_hash= $(git rev-parse HEAD)
-          run: >
+        - run: commit_hash= $(git rev-parse HEAD)
+        - run: >
             aws deploy create-deployment 
             --application-name PernApp 
             --deployment-group-name GithubActions
