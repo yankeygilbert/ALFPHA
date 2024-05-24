@@ -4,7 +4,7 @@ jobs:
     build:
       runs-on: ubuntu-latest
       steps:
-        - uses: actions/checkout@V4
+        - uses: actions/checkout@v4
         - run: |
             cd aws-hackathon/client && sudo npm install
             cd aws-hackathon/server && sudo npm install
@@ -22,7 +22,7 @@ jobs:
       permissions:
         id-token: write
       steps:
-        - uses: actions/checkout@V4
+        - uses: actions/checkout@v4
         - uses: aws-actions/configure-aws-credentials@v3
           with:
            role-to-assume: ${{secrets.AWS_ROLE_ARN}}
