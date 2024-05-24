@@ -1,16 +1,20 @@
-on: [workflow_dispatch]
+on: workflow_dispatch
 jobs:
     build:
       runs-on: ubuntu-latest
-      permissions:
-        id-token: write
-        content: read
       steps:
-        -uses: actions/checkout@V4
-        -run: 
-          cd aws-hackathon/client && sudo npm install
-        -run:
-          cd aws-hackathon/server && sudo npm install
+        - uses: actions/checkout@V4
+        - run: |
+            cd aws-hackathon/client && sudo npm install
+            cd aws-hackathon/server && sudo npm install
+            cd ..
+            tar czvf PernApp.tar.gz aws-hackathon/*
+        - uses: actions/upload-artifact@v4
+          with:
+            name: PernApp
+            path: PernApp.tar.gz  
+            if-no-files-found: 'warn'
+            retention-days: 1
     deploy:
       needs: build
       runs-on: ubuntu-latest
@@ -18,18 +22,16 @@ jobs:
         id-token: write
         content: read
       step:
-        -uses: actions/checkout@V4
-        -uses: aws-actions/configure-aws-credentials@v3
-        with:
-          role-to-assume: ${{secrets.AWS_ROLE_ARN}}
-          aws-region: ${{secrets.AWS_REGION}}
-        -run: 
-          commit_hash= $(git rev-parse HEAD)
-        -run: >
-          aws deploy create-deployment 
+        - uses: actions/checkout@V4
+        - uses: aws-actions/configure-aws-credentials@v3
+          with:
+           role-to-assume: ${{secrets.AWS_ROLE_ARN}}
+           aws-region: ${{secrets.AWS_REGION}}
+          run: commit_hash= $(git rev-parse HEAD)
+          run: >
+            aws deploy create-deployment 
             --application-name PernApp 
             --deployment-group-name GithubActions
-            --deployment-config-name CodeDeployDefault.OneAtATime 
             --github-location repository=${{ github.repository }},commitId=$commit_hash
         
 
